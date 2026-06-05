@@ -78,4 +78,4 @@ python app.py
 
 ## Team Project
 
-Mini Project developed as an AI-based fashion recommendation system.
+Mini Project developed as an AI-based outfit recommendation system.
