@@ -1,77 +1,283 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
-background: linear-gradient(135deg, #f5f7fa, #e4ecf7);
-min-height: 100vh;
-font-family: Arial, sans-serif;
+
+    background:#ffffff;
+
+    font-family:'Segoe UI',sans-serif;
+
+    color:#111827;
+
+    overflow-x:hidden;
 }
 
-h1{
-color: #1f2937;
-font-weight: bold;
+/* NAVBAR */
+
+.logo-text{
+
+    font-size:28px;
+
+    letter-spacing:1px;
 }
 
-.lead{
-color: #4b5563;
-font-size: 1.2rem;
+/* HERO */
+
+.hero{
+
+    padding:80px 0;
 }
 
-.container{
-animation: fadeIn 1s ease-in-out;
+.fashion-tag{
+
+    display:inline-block;
+
+    padding:8px 15px;
+
+    background:#f3f4f6;
+
+    border-radius:50px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
 }
 
-.btn-primary{
-background: #2563eb;
-border: none;
-padding: 12px 25px;
-border-radius: 10px;
-font-size: 18px;
-}
- .btn-primary:hover{
-     transform: translateY(-2px);
-     box-shadow: 0 6px 12px rgba(37,99,235,0.18);
- }
+.hero-title{
 
- .btn-success{
-background: #16a34a;
-border: none;
-border-radius: 10px;
-padding: 12px 25px;
+    font-size:4.8rem;
+
+    font-weight:800;
+
+    line-height:1.05;
 }
 
- .btn-success:hover{
-     transform: translateY(-2px);
-     box-shadow: 0 6px 12px rgba(22,163,74,0.12);
- }
+.hero-description{
+
+    font-size:1.15rem;
+
+    color:#6b7280;
+
+    margin-top:20px;
+
+    max-width:500px;
+}
+
+.hero-btn{
+
+    padding:14px 30px;
+
+    border-radius:10px;
+
+    transition:.3s;
+}
+
+.hero-btn:hover{
+
+    transform:translateY(-3px);
+}
+
+.hero-image{
+
+    width:420px;
+
+    max-width:100%;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,.15);
+
+    animation:float 5s ease-in-out infinite;
+}
+
+/* FEATURES */
+
+.features{
+
+    padding:50px 0 80px;
+}
+
+.feature-card{
+
+    background:#ffffff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    text-align:center;
+
+    transition:.3s;
+
+    height:100%;
+}
+
+.feature-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+    0 15px 30px rgba(0,0,0,.08);
+}
+
+.feature-icon{
+
+    font-size:48px;
+
+    margin-bottom:15px;
+}
+
+.feature-card p{
+
+    color:#6b7280;
+}
+
+/* FORM PAGE */
 
 .card{
-border-radius: 15px;
-border: none;
-box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+
+    border:none;
+
+    border-radius:25px;
+
+    box-shadow:
+    0 15px 35px rgba(0,0,0,.08);
+}
+
+.form-control,
+.form-select{
+
+    border-radius:12px;
+
+    padding:12px;
 }
 
 .img-thumbnail{
-border-radius: 15px;
+
+    border:none;
+
+    border-radius:20px;
 }
 
-.alert{
-border-radius: 12px;
+/* BUTTONS */
+
+.btn-dark{
+
+    border-radius:10px;
+
+    padding:12px 25px;
+
+    transition:.3s;
 }
 
-form{
-background: white;
-padding: 30px;
-border-radius: 15px;
-box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+.btn-dark:hover{
+
+    transform:translateY(-3px);
 }
 
-@keyframes fadeIn{
-    from{
-        opacity: 0;
-        transform: translateY(20px);
+/* FOOTER */
+
+.footer{
+
+    border-top:1px solid #e5e7eb;
+
+    text-align:center;
+
+    padding:30px 0;
+
+    margin-top:40px;
+
+    color:#6b7280;
+}
+
+/* ANIMATION */
+
+@keyframes float{
+
+    0%{
+        transform:translateY(0);
     }
 
-    to{
-        opacity: 1;
-        transform: translateY(0);
+    50%{
+        transform:translateY(-12px);
     }
 
+    100%{
+        transform:translateY(0);
+    }
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+    .hero{
+
+        text-align:center;
+    }
+
+    .hero-title{
+
+        font-size:3rem;
+    }
+
+    .hero-image{
+
+        width:280px;
+
+        margin-top:30px;
+    }
+}
+
+/* ===== PINTEREST GALLERY ===== */
+
+.gallery{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fill,minmax(280px,1fr));
+
+    gap:25px;
+
+    margin-top:30px;
+}
+
+.gallery-item{
+
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+}
+
+.gallery-item:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+        0 15px 30px rgba(0,0,0,.12);
+}
+
+.gallery-item img{
+
+    width:100%;
+
+    height:auto;
+
+    display:block;
 }

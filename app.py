@@ -15,7 +15,7 @@ db = mysql.connector.connect(
     host="localhost",
     port=3306,
     user="root",
-    password="abhinai25",
+    password="YOUR_PASSWORD",
     database="outfit_recommender"
 )
 
@@ -29,16 +29,20 @@ def recommend():
         occasion = request.form['occasion']
         style = request.form['style']
         city = request.form['city']
+
         image = request.files.get('image')
-
         image_filename = ""
-        skin_tone = "Unknown"
+        skin_tone = "Medium"
 
-        if image and getattr(image, 'filename', ''):
+        if image and image.filename:
             image_filename = image.filename
             image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
             image.save(image_path)
-            skin_tone = detect_skin_tone(image_path)
+
+            try:
+                skin_tone = detect_skin_tone(image_path)
+            except Exception:
+                skin_tone = "Medium"
 
         weather_type = "Normal"
         temperature = 25
@@ -55,23 +59,39 @@ def recommend():
         WHERE occasion=%s
         AND style=%s
         AND weather_type=%s
-        LIMIT 1
+        AND skin_tone=%s
+        ORDER BY image_url
         """
 
-        cursor.execute(query, (occasion, style, weather_type))
-        outfit = cursor.fetchone()
+        cursor.execute(query, (occasion, style, weather_type, skin_tone))
+        outfits = cursor.fetchall()
+
+        if not outfits:
+            fallback_query = """
+            SELECT *
+            FROM outfits
+            WHERE occasion=%s
+            AND style=%s
+            AND weather_type=%s
+            ORDER BY image_url
+            """
+
+            cursor.execute(fallback_query, (occasion, style, weather_type))
+            outfits = cursor.fetchall()
 
         return render_template(
             'result.html',
-            outfit=outfit,
+            outfits=outfits,
             image_filename=image_filename,
             skin_tone=skin_tone,
             weather_type=weather_type,
             temperature=temperature,
-            city=city
+            city=city,
+            occasion=occasion,
+            style=style
         )
 
     return render_template('recommend.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

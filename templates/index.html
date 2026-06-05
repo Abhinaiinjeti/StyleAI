@@ -1,87 +1,80 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
 
-```
-<title>StyleAI</title>
+    <title>StyleAI</title>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-```
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 </head>
 
 <body>
 
-<div class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
 
-```
-<div class="row justify-content-center">
+    <div class="container">
 
-    <div class="col-lg-8">
+        <a class="navbar-brand fw-bold logo-text" href="/">
+            StyleAI
+        </a>
 
-        <div class="card p-5 text-center mt-5">
+        <a href="/recommend" class="btn btn-dark">
+            Get Started
+        </a>
 
-            <h1 class="display-2 fw-bold">
-                StyleAI
-            </h1>
+    </div>
 
-            <p class="lead mt-3">
-                AI Powered Outfit Recommendation System
-            </p>
+</nav>
 
-            <div class="mt-4">
+<section class="hero">
 
-                <img
-                    src="https://cdn-icons-png.flaticon.com/512/892/892458.png"
-                    width="180"
-                    alt="StyleAI Logo"
-                >
+    <div class="container">
 
-            </div>
+        <div class="row align-items-center">
 
-            <div class="mt-4">
+            <div class="col-lg-6">
 
-                <p>
-                    Get personalized outfit recommendations based on:
+                <span class="fashion-tag">
+                    MEN'S FASHION + AI
+                </span>
+
+                <h1 class="hero-title">
+
+                    Discover Your
+                    Perfect Outfit
+
+                </h1>
+
+                <p class="hero-description">
+
+                    Personalized outfit recommendations based on
+                    skin tone, weather, occasion and style.
+
                 </p>
-
-                <div class="row mt-4">
-
-                    <div class="col-md-4">
-                        <h5>📷 Image Analysis</h5>
-                        <p>Skin Tone Detection</p>
-                    </div>
-
-                    <div class="col-md-4">
-                        <h5>🌦 Weather</h5>
-                        <p>Live Weather Based Suggestions</p>
-                    </div>
-
-                    <div class="col-md-4">
-                        <h5>👔 Occasion</h5>
-                        <p>College, Office, Party & More</p>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="mt-5">
 
                 <a
                     href="/recommend"
-                    class="btn btn-primary btn-lg"
+                    class="btn btn-dark btn-lg mt-3 hero-btn"
                 >
-                    Start Recommendation
+                    Explore Styles
                 </a>
+
+            </div>
+
+            <div class="col-lg-6 text-center">
+
+                <img
+                    src="{{ url_for('static', filename='outfit_images/party/party17.jpeg') }}"
+                    class="hero-image"
+                    alt="Fashion Outfit"
+                >
 
             </div>
 
@@ -89,10 +82,105 @@
 
     </div>
 
-</div>
-```
+</section>
 
-</div>
+<section class="features">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📷
+                    </div>
+
+                    <h5>Skin Tone</h5>
+
+                    <p>
+                        AI analyzes your skin tone.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🌦
+                    </div>
+
+                    <h5>Weather</h5>
+
+                    <p>
+                        Weather-aware recommendations.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        👔
+                    </div>
+
+                    <h5>Occasion</h5>
+
+                    <p>
+                        College, Office, Party & Interview.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🤖
+                    </div>
+
+                    <h5>AI Engine</h5>
+
+                    <p>
+                        Personalized fashion suggestions.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer class="footer">
+
+    <div class="container">
+
+        <h5>StyleAI</h5>
+
+        <p>
+            AI Personalized Outfit Recommendation System
+        </p>
+
+    </div>
+
+</footer>
 
 </body>
 
