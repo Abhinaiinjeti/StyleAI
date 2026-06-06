@@ -69,13 +69,35 @@
 
                         </label>
 
+                       <label class="form-label mt-2">
+                          📷 Take Photo
+                        </label>
+
                         <input
                             type="file"
                             class="form-control"
+                            id="cameraInput"
+                            accept="image/*"
+                            capture="environment"
+                        >
+
+                        <label class="form-label mt-3">
+                            🖼️ Choose From Gallery
+                        </label>
+
+                        <input
+                            type="file"
+                            class="form-control"
+                            id="galleryInput"
+                            accept="image/*"
+                        >
+
+                        <input
+                            type="file"
                             id="imageInput"
                             name="image"
+                            style="display:none;"
                             accept="image/*"
-                            required
                         >
 
                         <small class="text-muted">
@@ -276,44 +298,68 @@
 
 <script>
 
-// IMAGE PREVIEW
+const previewImage =
+    document.getElementById("previewImage");
+
+const hiddenInput =
+    document.getElementById("imageInput");
+
+function setImage(file){
+
+    if(!file) return;
+
+    const dt =
+        new DataTransfer();
+
+    dt.items.add(file);
+
+    hiddenInput.files =
+        dt.files;
+
+    const reader =
+        new FileReader();
+
+    reader.onload = function(e){
+
+        previewImage.src =
+            e.target.result;
+
+        previewImage.style.display =
+            "block";
+    };
+
+    reader.readAsDataURL(file);
+}
+
+/* CAMERA */
 
 document
-.getElementById("imageInput")
+.getElementById("cameraInput")
 .addEventListener(
     "change",
-    function(event){
+    function(e){
 
-        const file =
-            event.target.files[0];
-
-        if(file){
-
-            const reader =
-                new FileReader();
-
-            reader.onload =
-                function(e){
-
-                    const preview =
-                        document.getElementById(
-                            "previewImage"
-                        );
-
-                    preview.src =
-                        e.target.result;
-
-                    preview.style.display =
-                        "block";
-                };
-
-            reader.readAsDataURL(file);
-        }
-
+        setImage(
+            e.target.files[0]
+        );
     }
 );
 
-// FORM SUBMIT
+/* GALLERY */
+
+document
+.getElementById("galleryInput")
+.addEventListener(
+    "change",
+    function(e){
+
+        setImage(
+            e.target.files[0]
+        );
+    }
+);
+
+/* FORM SUBMIT */
 
 document
 .querySelector("form")
@@ -321,12 +367,13 @@ document
     "submit",
     function(e){
 
-        const fileInput =
-            document.getElementById("imageInput");
+        if(
+            hiddenInput.files.length === 0
+        ){
 
-        if(fileInput.files.length === 0){
-
-            alert("Please select an image.");
+            alert(
+                "Please select or capture an image."
+            );
 
             e.preventDefault();
 
@@ -334,9 +381,11 @@ document
         }
 
         document
-        .getElementById("loadingScreen")
-        .style.display = "block";
-
+        .getElementById(
+            "loadingScreen"
+        )
+        .style.display =
+            "block";
     }
 );
 
