@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import mysql.connector
+import sqlite3
 import os
 
 from services.skin_tone import detect_skin_tone
@@ -11,12 +11,10 @@ UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-db = mysql.connector.connect(
-    host="localhost",
-    port=3306,
-    user="root",
-    password="abhinai25",
-    database="outfit_recommender"
+db = sqlite3.connect(
+    "outfit_recommender.db",
+    check_same_thread=False
+
 )
 
 @app.route('/')
@@ -52,14 +50,15 @@ def recommend():
         except Exception:
             pass
 
-        cursor = db.cursor(dictionary=True)
+        db.row_factory = sqlite3.Row
+        cursor = db.cursor()
         query = """
         SELECT *
         FROM outfits
-        WHERE occasion=%s
-        AND style=%s
-        AND weather_type=%s
-        AND skin_tone=%s
+        WHERE occasion=?
+        AND style=?
+        AND weather_type=?
+        AND skin_tone=?
         ORDER BY image_url
         """
 
@@ -70,14 +69,14 @@ def recommend():
             fallback_query = """
             SELECT *
             FROM outfits
-            WHERE occasion=%s
-            AND style=%s
-            AND weather_type=%s
+            WHERE occasion=?
+            AND style=?
+            AND weather_type=?
             ORDER BY image_url
             """
 
             cursor.execute(fallback_query, (occasion, style, weather_type))
-            outfits = cursor.fetchall()
+            outfits = [dict(row) for row in cursor.fetchall()]
 
         return render_template(
             'result.html',
