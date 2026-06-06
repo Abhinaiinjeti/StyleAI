@@ -15,7 +15,7 @@ db = mysql.connector.connect(
     host="localhost",
     port=3306,
     user="root",
-    password="YOUR_PASSWORD",
+    password="abhinai25",
     database="outfit_recommender"
 )
 
