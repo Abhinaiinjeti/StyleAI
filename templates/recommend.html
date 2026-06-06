@@ -65,7 +65,7 @@
 
                         <label class="form-label fw-bold">
 
-                            📷 Upload or Capture Image
+                            📷 Upload Image
 
                         </label>
 
@@ -75,7 +75,6 @@
                             id="imageInput"
                             name="image"
                             accept="image/*"
-                            capture
                             required
                         >
 
@@ -277,6 +276,8 @@
 
 <script>
 
+// IMAGE PREVIEW
+
 document
 .getElementById("imageInput")
 .addEventListener(
@@ -312,16 +313,28 @@ document
     }
 );
 
+// FORM SUBMIT
+
 document
 .querySelector("form")
 .addEventListener(
     "submit",
-    function(){
+    function(e){
+
+        const fileInput =
+            document.getElementById("imageInput");
+
+        if(fileInput.files.length === 0){
+
+            alert("Please select an image.");
+
+            e.preventDefault();
+
+            return;
+        }
 
         document
-        .getElementById(
-            "loadingScreen"
-        )
+        .getElementById("loadingScreen")
         .style.display = "block";
 
     }
