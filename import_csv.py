@@ -28,4 +28,4 @@ with open("outfits.csv", "r", encoding="utf-8") as file:
 conn.commit()
 conn.close()
 
-print("66 records imported successfully!")
+print(" records imported successfully!")

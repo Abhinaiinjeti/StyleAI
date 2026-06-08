@@ -13,6 +13,50 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
+    <style>
+
+        .gallery{
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+            gap:25px;
+        }
+
+        .gallery-item{
+            background:white;
+            border-radius:15px;
+            overflow:hidden;
+            box-shadow:0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .gallery-item img{
+            width:100%;
+            height:500px;
+            object-fit:contain;
+            background:#f8f9fa;
+            padding:10px;
+        }
+
+        .details-box{
+            padding:15px;
+            display:none;
+            border-top:1px solid #ddd;
+        }
+
+        .details-btn{
+            width:100%;
+            border:none;
+            padding:12px;
+            background:#212529;
+            color:white;
+            font-weight:600;
+        }
+
+        .details-btn:hover{
+            background:#000;
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -25,9 +69,9 @@
             Recommended Outfits
         </h1>
 
-        <p class="text-muted">
-            Personalized fashion recommendations for you
-        </p>
+        <h5 class="text-success">
+            {{ outfits|length }} Outfit Recommendations Found
+        </h5>
 
     </div>
 
@@ -75,32 +119,114 @@
 
     {% for outfit in outfits %}
 
-    <div class="gallery-item">
+        <div class="gallery-item">
 
-        <img
-            src="{{ url_for('static', filename='outfit_images/' + outfit.image_url) }}"
-            alt="Outfit"
-        >
+            <img
+                src="{{ url_for('static', filename='outfit_images/' + outfit.image_url) }}"
+                alt="Outfit"
+            >
 
-    </div>
+            <button
+                class="details-btn"
+                onclick="toggleDetails({{ outfit.id }})">
+                View Details
+            </button>
+
+            <div
+                class="details-box"
+                id="details{{ outfit.id }}">
+
+                <h5>Outfit Details</h5>
+
+                <p>
+                    <strong>Top Wear:</strong>
+                    {{ outfit.top_wear }}
+                </p>
+
+                <p>
+                    <strong>Bottom Wear:</strong>
+                    {{ outfit.bottom_wear }}
+                </p>
+
+                <p>
+                    <strong>Footwear:</strong>
+                    {{ outfit.footwear }}
+                </p>
+
+                <p>
+                    <strong>Accessories:</strong>
+                    {{ outfit.accessories }}
+                </p>
+
+                <p>
+                    <strong>Suitable Weather:</strong>
+                    {{ outfit.weather_type }}
+                </p>
+
+                <p>
+                    <strong>Suitable Skin Tone:</strong>
+                    {{ outfit.skin_tone }}
+                </p>
+
+                <hr>
+
+                <p>
+                    This outfit features
+                    <strong>{{ outfit.top_wear }}</strong>
+                    paired with
+                    <strong>{{ outfit.bottom_wear }}</strong>,
+                    completed by
+                    <strong>{{ outfit.footwear }}</strong>.
+                </p>
+
+                {% if outfit.accessories %}
+                <p>
+                    Accessories:
+                    <strong>{{ outfit.accessories }}</strong>
+                </p>
+                {% endif %}
+
+            </div>
+
+        </div>
 
     {% endfor %}
 
-</div>
-    
+    </div>
 
     <div class="text-center mt-5">
 
         <a
             href="/recommend"
-            class="btn btn-dark btn-lg"
-        >
+            class="btn btn-dark btn-lg">
             Try Another Recommendation
         </a>
 
     </div>
 
 </div>
+
+<script>
+
+function toggleDetails(id){
+
+    const box =
+        document.getElementById(
+            "details" + id
+        );
+
+    if(box.style.display==="block"){
+
+        box.style.display="none";
+
+    }else{
+
+        box.style.display="block";
+
+    }
+}
+
+</script>
 
 </body>
 

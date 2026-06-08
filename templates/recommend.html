@@ -64,53 +64,27 @@
                     <div class="mb-4">
 
                         <label class="form-label fw-bold">
-
-                            📷 Upload Image
-
-                        </label>
-
-                       <label class="form-label mt-2">
-                          📷 Take Photo
+                            Upload Your Photo
                         </label>
 
                         <input
                             type="file"
                             class="form-control"
-                            id="cameraInput"
-                            accept="image/*"
-                            capture="environment"
-                        >
-
-                        <label class="form-label mt-3">
-                            🖼️ Choose From Gallery
-                        </label>
-
-                        <input
-                            type="file"
-                            class="form-control"
-                            id="galleryInput"
-                            accept="image/*"
-                        >
-
-                        <input
-                            type="file"
                             id="imageInput"
                             name="image"
-                            style="display:none;"
                             accept="image/*"
+                            capture="environment"
+                            required
                         >
 
                         <small class="text-muted">
-
                             Mobile: Camera or Gallery
-
                             <br>
-
-                            Laptop: File Upload
-
+                            Laptop/Desktop: Browse Files
                         </small>
 
                     </div>
+                    
 
                     <!-- IMAGE PREVIEW -->
 
@@ -121,20 +95,22 @@
                             src=""
                             class="img-thumbnail"
                             style="
-                                max-width:250px;
+                                width:300px;
+                                height:300px;
+                                object-fit:cover;
                                 display:none;
+                                border-radius:20px;
                             "
-                        >
+    >
 
-                    </div>
-
+</div>
                     <!-- OCCASION -->
 
                     <div class="mb-3">
 
                         <label class="form-label fw-bold">
 
-                            🎯 Occasion
+                            Occasion
 
                         </label>
 
@@ -174,31 +150,31 @@
 
                         <label class="form-label fw-bold">
 
-                            👔 Style
+                            Style Preference
 
                         </label>
 
                         <select
                             class="form-select"
                             name="style"
-                            required
+                        
                         >
 
                             <option value="">
-                                Select Style
+                                Any Style (Recommended)
                             </option>
 
-                            <option value="Casual">
-                                Casual
-                            </option>
-
-                            <option value="Formal">
-                                Formal
-                            </option>
-
-                            <option value="Smart Casual">
-                                Smart Casual
-                            </option>
+                            <option value="Casual">Casual</option>
+                            <option value="Formal">Formal</option>
+                            <option value="Smart Casual">Smart Casual</option>
+                            <option value="Business Casual">Business Casual</option>
+                            <option value="Business Formal">Business Formal</option>
+                            <option value="Smart Party">Smart Party</option>
+                            <option value="Casual Party">Casual Party</option>
+                            <option value="Formal Party">Formal Party</option>
+                            <option value="Ethnic Party">Ethnic Party</option>
+                            <option value="Wedding Ethnic">Wedding Ethnic</option>
+                            <option value="Wedding">Wedding</option>
 
                         </select>
 
@@ -210,7 +186,7 @@
 
                         <label class="form-label fw-bold">
 
-                            🌍 City
+                            Location
 
                         </label>
 
@@ -298,92 +274,45 @@
 
 <script>
 
+const imageInput =
+    document.getElementById("imageInput");
+
 const previewImage =
     document.getElementById("previewImage");
 
-const hiddenInput =
-    document.getElementById("imageInput");
-
-function setImage(file){
-
-    if(!file) return;
-
-    const dt =
-        new DataTransfer();
-
-    dt.items.add(file);
-
-    hiddenInput.files =
-        dt.files;
-
-    const reader =
-        new FileReader();
-
-    reader.onload = function(e){
-
-        previewImage.src =
-            e.target.result;
-
-        previewImage.style.display =
-            "block";
-    };
-
-    reader.readAsDataURL(file);
-}
-
-/* CAMERA */
-
-document
-.getElementById("cameraInput")
-.addEventListener(
+imageInput.addEventListener(
     "change",
     function(e){
 
-        setImage(
-            e.target.files[0]
-        );
+        const file =
+            e.target.files[0];
+
+        if(!file) return;
+
+        const reader =
+            new FileReader();
+
+        reader.onload = function(event){
+
+            previewImage.src =
+                event.target.result;
+
+            previewImage.style.display =
+                "block";
+        };
+
+        reader.readAsDataURL(file);
     }
 );
-
-/* GALLERY */
-
-document
-.getElementById("galleryInput")
-.addEventListener(
-    "change",
-    function(e){
-
-        setImage(
-            e.target.files[0]
-        );
-    }
-);
-
-/* FORM SUBMIT */
 
 document
 .querySelector("form")
 .addEventListener(
     "submit",
-    function(e){
-
-        if(
-            hiddenInput.files.length === 0
-        ){
-
-            alert(
-                "Please select or capture an image."
-            );
-
-            e.preventDefault();
-
-            return;
-        }
+    function(){
 
         document
-        .getElementById(
-            "loadingScreen"
-        )
+        .getElementById("loadingScreen")
         .style.display =
             "block";
     }
