@@ -126,11 +126,21 @@
                 alt="Outfit"
             >
 
-            <button
-                class="details-btn"
-                onclick="toggleDetails({{ outfit.id }})">
-                View Details
-            </button>
+            <div class="d-flex">
+
+                <button
+                    class="btn btn-danger w-50"
+                    onclick="saveFavorite({{ outfit.id }})">
+                    ❤️ Favorite
+                </button>
+
+                <button
+                    class="details-btn w-50"
+                    onclick="toggleDetails('{{ outfit.id }}')">
+                    View Details
+                </button>
+
+            </div>
 
             <div
                 class="details-box"
@@ -227,7 +237,33 @@ function toggleDetails(id){
 }
 
 </script>
+<script>
 
+function saveFavorite(id){
+
+    let favorites =
+        JSON.parse(
+            localStorage.getItem("favorites")
+        ) || [];
+
+    if(!favorites.includes(id)){
+
+        favorites.push(id);
+
+        localStorage.setItem(
+            "favorites",
+            JSON.stringify(favorites)
+        );
+
+        alert("Outfit added to favorites ❤️");
+
+    }else{
+
+        alert("Already in favorites");
+    }
+}
+
+</script>
 </body>
 
 </html>

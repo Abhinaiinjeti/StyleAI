@@ -21,6 +21,24 @@ db = sqlite3.connect(
 def home():
     return render_template('index.html')
 
+@app.route('/favorites')
+def favorites():
+
+    db.row_factory = sqlite3.Row
+    cursor = db.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM outfits
+        ORDER BY id
+    """)
+
+    outfits = [dict(row) for row in cursor.fetchall()]
+
+    return render_template(
+        "favorites.html",
+        outfits=outfits
+    )
 
 @app.route('/recommend', methods=['GET', 'POST'])
 
