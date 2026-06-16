@@ -216,4 +216,4 @@ python app.py
 
 ## Author
 
-Developed as an AI-powered fashion recommendation project using Flask, SQLite and Machine Learning concepts.
+Developed as an AI-powered outfit recommendation project using Flask, SQLite and Machine Learning concepts.
