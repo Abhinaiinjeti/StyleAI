@@ -281,3 +281,15 @@ body{
 
     display:block;
 }
+@media (max-width: 768px){
+
+    .logo-text{
+        font-size: 2rem;
+    }
+
+    .navbar .btn{
+        padding:8px 14px;
+        font-size:14px;
+    }
+
+}
