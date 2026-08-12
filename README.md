@@ -79,7 +79,6 @@ Recommendations are ranked based on:
 
 ### Image Upload Support
 
-* Mobile Camera Capture
 * Mobile Gallery Upload
 * Laptop/Desktop File Upload
 
