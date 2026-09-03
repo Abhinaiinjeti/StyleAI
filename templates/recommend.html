@@ -152,25 +152,12 @@
                         <select
                             class="form-select"
                             name="style"
-                        
+                            id="styleSelect"
+                            required
                         >
-
                             <option value="">
-                                Any Style (Recommended)
+                                Select Style
                             </option>
-
-                            <option value="Casual">Casual</option>
-                            <option value="Formal">Formal</option>
-                            <option value="Smart Casual">Smart Casual</option>
-                            <option value="Business Casual">Business Casual</option>
-                            <option value="Business Formal">Business Formal</option>
-                            <option value="Smart Party">Smart Party</option>
-                            <option value="Casual Party">Casual Party</option>
-                            <option value="Formal Party">Formal Party</option>
-                            <option value="Ethnic Party">Ethnic Party</option>
-                            <option value="Wedding Ethnic">Wedding Ethnic</option>
-                            <option value="Wedding">Wedding</option>
-
                         </select>
 
                     </div>
@@ -297,6 +284,80 @@ imageInput.addEventListener(
         };
 
         reader.readAsDataURL(file);
+    }
+);
+const occasionSelect =
+    document.querySelector('select[name="occasion"]');
+
+const styleSelect =
+    document.getElementById("styleSelect");
+
+
+const occasionStyles = {
+
+    "College": [
+        "Casual",
+        "Smart Casual",
+        "Formal"
+    ],
+
+    "Office": [
+        "Casual",
+        "Smart Casual",
+        "Formal",
+        "Business Casual",
+        "Business Formal"
+    ],
+
+    "Interview": [
+        "Formal",
+        "Business Formal",
+        "Business Casual",
+        "Smart Casual"
+    ],
+
+    "Party": [
+        "Casual",
+        "Smart Casual",
+        "Formal",
+        "Smart Party",
+        "Casual Party",
+        "Formal Party",
+        "Ethnic Party",
+        "Wedding Ethnic"
+    ]
+
+};
+
+
+occasionSelect.addEventListener(
+    "change",
+    function() {
+
+        const occasion =
+            this.value;
+
+        styleSelect.innerHTML =
+            '<option value="">Select Style</option>';
+
+        if (!occasionStyles[occasion]) {
+            return;
+        }
+
+        occasionStyles[occasion].forEach(
+            function(style) {
+
+                const option =
+                    document.createElement("option");
+
+                option.value = style;
+                option.textContent = style;
+
+                styleSelect.appendChild(option);
+
+            }
+        );
+
     }
 );
 

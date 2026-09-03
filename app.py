@@ -47,6 +47,39 @@ def recommend():
 
         occasion = request.form['occasion']
         style = request.form.get('style', '')
+        occasion_styles = {
+            "College": [
+                "Casual",
+                "Smart Casual",
+                "Formal"
+            ],
+            "Office": [
+                "Casual",
+                "Smart Casual",
+                "Formal",
+                "Business Casual",
+                "Business Formal"
+            ],
+            "Interview": [
+                "Formal",
+                "Business Formal",
+                "Business Casual",
+                "Smart Casual"
+            ],
+            "Party": [
+                "Casual",
+                "Smart Casual",
+                "Formal",
+                "Smart Party",
+                "Casual Party",
+                "Formal Party",
+                "Ethnic Party",
+                "Wedding Ethnic"
+            ]
+        }
+
+        if style and style not in occasion_styles.get(occasion, []):
+            return "Invalid style selected for the selected occasion.", 400
         city = request.form['city']
 
         image = request.files.get('image')
@@ -188,29 +221,7 @@ def recommend():
                     if len(all_outfits) >= 8:
                         break
 
-        for outfit in all_outfits:
-
-            score = 60
-
-            if outfit["occasion"] == occasion:
-                score += 15
-
-            if outfit["weather_type"] in valid_weather:
-                score += 15
-
-            if outfit["skin_tone"] in valid_skin:
-                score += 10
-
-            if style and outfit["style"] == style:
-                score += 10
-
-            outfit["match_score"] = min(score, 100)
-
-        outfits = sorted(
-        all_outfits,
-        key=lambda x: x["match_score"],
-        reverse=True
-        )[:20]
+        outfits = all_outfits[:20]
 
         return render_template(
             'result.html',
